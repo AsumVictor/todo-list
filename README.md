@@ -40,14 +40,20 @@ The Todo List microverse challenge is all about building a web-based application
   </ul>
 </details>
 
+<details>
+  <summary>Others</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">Webpack</a></li>
+  </ul>
+</details>
+
 ### Key Features <a name="key-features"></a>
 
-- **Responsive mobile menu**
-- **A list of my projects in a card form**
+- **Display todo list dynamically**
 
-## Live demo <a name="key-features"></a>
+<!-- ## Live demo <a name="key-features"></a>
 
-I have deployed the project of github. [Click to view the online version of my project](https://asumvictor.github.io/Porfolio/)
+I have deployed the project of github. [Click to view the online version of my project](https://asumvictor.github.io/Porfolio/) -->
 
 
 ## 💻 Getting Started <a name="getting-started"></a>
@@ -60,6 +66,7 @@ In order to run this project you need:
 
 <ul>
     <li>To download a text editor. example Visual Studio Code</li>
+     <li>Install Node</li>
   </ul>
 
 ### Setup
@@ -69,7 +76,7 @@ Clone this repository to your desired folder:
 
 ```sh
   cd my-folder
-  git clone https://github.com/AsumVictor/Porfolio.git
+  git clone https://github.com/AsumVictor/todo-list.git
 ```
 
 ### Install
@@ -81,7 +88,9 @@ run
 
 ### Usage
 
-Open the index.html file in your favorite web browser
+```open 
+npm run start
+```
 
 ### Run tests
 
@@ -107,16 +116,6 @@ Github pages depolyment
 - GitHub: [@AsumVictor](https://github.com/AsumVictor)
 - Twitter: [@iamasum369](https://twitter.com/iamasum369)
 - LinkedIn: [AsumVictorDev](https://linkedin.com/in/asumvictordev)
-
-👤 **Haben Mehari**
-
-- GitHub: [@habitoz](https://github.com/habitoz)
-- Linkedin: [@habitoz](https://www.linkedin.com/in/haben-mehari-593531140)
-
-👤 **I belive**
-
-- GitHub: [@ibelieve](https://github.com/habitoz)
-- Linkedin: [@ibelieve](https://www.linkedin.com/in/haben-mehari-593531140)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

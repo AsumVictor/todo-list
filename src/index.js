@@ -1,32 +1,29 @@
-import './style.css'
-import { createElement } from './utilities/CreateElement'
-import { DocumentEvent } from './utilities/DocumentEvents'
-import { getItemsFromStorage, saveItemsToStorage } from './utilities/Storage'
-import { SelectElemtFromDOM } from './utilities/variables'
-import { Data } from './utilities/todoData'
+import './style.css';
+import createElement from './utilities/CreateElement';
+import { DocumentEvent } from './utilities/DocumentEvents';
+import { getItemsFromStorage, saveItemsToStorage } from './utilities/Storage';
+import { SelectElemtFromDOM } from './utilities/variables';
+import Data from './utilities/todoData';
 
-saveItemsToStorage('todos', Data)
+saveItemsToStorage('todos', Data);
 
-DocumentEvent('DOMContentLoaded', ()=>{
-let todos = getItemsFromStorage('todos')
-let TodoContainer = SelectElemtFromDOM('.todos')
+DocumentEvent('DOMContentLoaded', () => {
+  const todos = getItemsFromStorage('todos');
+  const TodoContainer = SelectElemtFromDOM('.todos');
 
-todos.forEach(todosItem => {
+  todos.forEach((todosItem) => {
     let checkBox;
-    if(todosItem.completed){
-         checkBox = 'checked'
-    }else{
-         checkBox = null
+    if (todosItem.completed) {
+      checkBox = 'checked';
+    } else {
+      checkBox = null;
     }
-   let todo = createElement('div', 'todo' ,null, null, `
+    const todo = createElement('div', 'todo', null, null, `
     <input type="checkbox" name="completed" id="completed" ${checkBox}>
     <p class="discription">Get enough money</p>
     <i class="fas fa-ellipsis-v"></i>
-    `)
-    todo.classList.add('todo')
-    TodoContainer.appendChild(todo)
-  
-}
-    )
-console.log(todos)
-})
+    `);
+    todo.classList.add('todo');
+    TodoContainer.appendChild(todo);
+  });
+});
