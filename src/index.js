@@ -1,9 +1,7 @@
-import "./style.css";
-import DocumentEvent, { elEvent } from "./utilities/DocumentEvents";
-import DisplayTodoListOnDOM from "./utilities/DisplayElement";
+import './style.css';
+import DocumentEvent from './utilities/DocumentEvents';
+import DisplayTodoListOnDOM from './utilities/DisplayElement';
 
-DocumentEvent("DOMContentLoaded", () => {
+DocumentEvent('DOMContentLoaded', () => {
   DisplayTodoListOnDOM();
 });
-
-DisplayTodoListOnDOM();

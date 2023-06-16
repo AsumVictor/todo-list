@@ -1,40 +1,73 @@
-import { saveItemsToStorage, removeItemsToStorage } from "./Storage"
-import DisplayTodoListOnDOM from "./DisplayElement"
-import todos from "./todoData"
-import SelectElementFromDOM from "./variables"
+import { saveItemsToStorage, getItemsFromStorage } from './Storage';
+import { SelectElementFromDOM } from './variables';
 
 // Add new todo list
-const saveTodo = (arrayItem)=> {
-  let listTodo =  arrayItem.map((todo, index)=>{
-        return {...todo, index: index+1}
-    })
+const saveTodo = (arrayItem) => {
+  const listTodo = arrayItem.map((todo, index) => ({
+    ...todo,
+    index: index + 1,
+  }));
 
-    return listTodo
-}
+  return listTodo;
+};
 
-export const addTodo = () =>{
-let input = SelectElementFromDOM('input')
-  let newTodo = {
+let state = null;
+
+export const addTodo = () => {
+  const todos = getItemsFromStorage('todos');
+  const input = SelectElementFromDOM('input');
+  const newTodo = {
     description: input.value,
-    completed: false
+    completed: false,
+  };
+
+  if (input.value.trim() === '') {
+    alert('Field cannot be empty');
+    return;
   }
 
-  if(input.value.trim() === ''){
-    alert('Field cannot be empty')
-    return
-  }
-
-  todos.push(newTodo)
-  let orderedTodo = saveTodo(todos)
-  saveItemsToStorage('todos', orderedTodo)
-  DisplayTodoListOnDOM()
-  input.value = ''
-}
+  todos.push(newTodo);
+  const orderedTodo = saveTodo(todos);
+  saveItemsToStorage('todos', orderedTodo);
+  input.value = '';
+};
 
 // Remove todo list
-export const removeTodo = (index) =>{
-    let newList = todos.filter(todo => todos.indexOf(todo) !== index)
-     let orderedList = saveTodo(newList)
-    saveItemsToStorage('todos', orderedList)
-        DisplayTodoListOnDOM()
-       }
+export const removeTodo = (index) => {
+  const todos = getItemsFromStorage('todos');
+  const newList = todos.filter((todo) => todo.index !== index + 1);
+
+  const orderedList = saveTodo(newList);
+  saveItemsToStorage('todos', orderedList);
+};
+
+export const editTodo = (index) => {
+  const todos = getItemsFromStorage('todos');
+  const input = SelectElementFromDOM('input');
+  input.value = todos[index].description;
+  state = index;
+};
+
+export const updateCompleteStatus = (index) => {
+  const todos = getItemsFromStorage('todos');
+
+  todos[index] = {
+    ...todos[index],
+    completed: !todos[index].completed,
+  };
+
+  saveItemsToStorage('todos', todos);
+};
+
+export const saveEdit = () => {
+  const todos = getItemsFromStorage('todos');
+  const input = SelectElementFromDOM('input');
+  todos[state] = {
+    ...todos[state],
+    description: input.value,
+  };
+
+  saveItemsToStorage('todos', todos);
+  state = null;
+  input.value = '';
+};
