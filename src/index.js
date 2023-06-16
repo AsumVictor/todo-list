@@ -5,7 +5,7 @@ import { getItemsFromStorage, saveItemsToStorage } from './utilities/Storage'
 import { SelectElemtFromDOM } from './utilities/variables'
 import { Data } from './utilities/todoData'
 
-saveItemsToStorage
+saveItemsToStorage('todos', Data)
 
 DocumentEvent('DOMContentLoaded', ()=>{
 let todos = getItemsFromStorage('todos')
