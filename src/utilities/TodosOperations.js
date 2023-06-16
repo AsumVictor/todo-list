@@ -1,13 +1,20 @@
-import { saveItemsToStorage } from "./Storage"
+import { saveItemsToStorage, removeItemsToStorage } from "./Storage"
 import DisplayTodoListOnDOM from "./DisplayElement"
 import todos from "./todoData"
-import SelectElemtFromDOM from "./variables"
+import SelectElementFromDOM from "./variables"
+
+// Add new todo list
+const saveTodo = (arrayItem)=> {
+  let listTodo =  arrayItem.map((todo, index)=>{
+        return {...todo, index: index+1}
+    })
+
+    return listTodo
+}
 
 export const addTodo = () =>{
-    const index = todos.length + 1
-let input = SelectElemtFromDOM('input')
+let input = SelectElementFromDOM('input')
   let newTodo = {
-    index,
     description: input.value,
     completed: false
   }
@@ -18,7 +25,16 @@ let input = SelectElemtFromDOM('input')
   }
 
   todos.push(newTodo)
-  saveItemsToStorage('todos', todos)
+  let orderedTodo = saveTodo(todos)
+  saveItemsToStorage('todos', orderedTodo)
   DisplayTodoListOnDOM()
   input.value = ''
 }
+
+// Remove todo list
+export const removeTodo = (index) =>{
+    let newList = todos.filter(todo => todos.indexOf(todo) !== index)
+     let orderedList = saveTodo(newList)
+    saveItemsToStorage('todos', orderedList)
+        DisplayTodoListOnDOM()
+       }

@@ -1,26 +1,68 @@
-import SelectElemtFromDOM from "./variables";
-import createElement from './CreateElement';
-import todos from "./todoData";
+import createElement from "./CreateElement";
+import SelectElementFromDOM, {
+  SelectMultipleElementsFromDOM,
+} from "./variables";
+import { addTodo, removeTodo } from "./TodosOperations";
+import { elEvent } from "./DocumentEvents";
+import { getItemsFromStorage } from "./Storage";
 
-const DisplayTodoListOnDOM = () =>{
-  const TodoContainer = SelectElemtFromDOM('.todos');
-  TodoContainer.innerHTML = '';
-  
+const DisplayTodoListOnDOM = () => {
+  let todos;
+  if (!getItemsFromStorage("todos")) {
+    todos = [];
+  } else {
+    todos = getItemsFromStorage("todos");
+  }
+
+  const TodoContainer = SelectElementFromDOM(".todos");
+  TodoContainer.innerHTML = "";
+
   todos.forEach((todosItem) => {
     let checkBox;
     if (todosItem.completed) {
-      checkBox = 'checked';
+      checkBox = "checked";
     } else {
       checkBox = null;
     }
-    const todo = createElement('div', 'todo', null, null, `
-    <input type="checkbox" name="completed" id="completed" ${checkBox}>
-    <p class="discription">${todosItem.description}</p>
-    <i class="fas fa-ellipsis-v"></i>
-    `);
-    todo.classList.add('todo');
+    const todo = createElement(
+      "div",
+      "todo",
+      null,
+      null,
+      `
+    <input type="checkbox" name="completed" class='checkbox' id="completed${todosItem.index}" ${checkBox}>
+    <label for='completed${todosItem.index}' class="discription">${todosItem.description}</label>
+    <i class="fa fa-trash delete" aria-hidden="true"></i>
+    `
+    );
+    todo.classList.add("todo");
     TodoContainer.appendChild(todo);
   });
-}
 
-export default DisplayTodoListOnDOM
+  const addTodoBtn = SelectElementFromDOM(".add-todo-btn");
+  const input = SelectElementFromDOM("input");
+  const deleIcons = SelectMultipleElementsFromDOM(".delete");
+  const checkboxs = SelectMultipleElementsFromDOM(".checkbox");
+  elEvent(addTodoBtn, "click", addTodo);
+  elEvent(input, "keypress", (event) => {
+    // if key is equall to enter
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addTodo();
+    }
+  });
+
+  deleIcons.forEach((deleIcon, index) => {
+    elEvent(deleIcon, "click", () => {
+      removeTodo(index);
+    });
+  });
+
+  checkboxs.forEach((checkbox, index) => {
+    elEvent(checkbox, "click", () => {
+      console.log(index);
+    });
+  });
+};
+
+export default DisplayTodoListOnDOM;

@@ -1,6 +1,11 @@
-export const SelectElemtFromDOM = (element) => {
+export const SelectElementFromDOM = (element) => {
   const el = document.querySelector(element);
   return el;
 };
 
-export default SelectElemtFromDOM;
+export const SelectMultipleElementsFromDOM = (element) => {
+  const el = document.querySelectorAll(element);
+  return el;
+};
+
+export default SelectElementFromDOM;
