@@ -1,12 +1,26 @@
-const printElements = (containerClass, elements) => {
-  const container = document.querySelector(`.${containerClass}`);
-  container.innerHTML = '';
+import SelectElemtFromDOM from "./variables";
+import createElement from './CreateElement';
+import todos from "./todoData";
 
-  if (elements) {
-    elements.forEach((element) => {
-      container.appendChild(element);
-    });
-  }
-};
+const DisplayTodoListOnDOM = () =>{
+  const TodoContainer = SelectElemtFromDOM('.todos');
+  TodoContainer.innerHTML = '';
+  
+  todos.forEach((todosItem) => {
+    let checkBox;
+    if (todosItem.completed) {
+      checkBox = 'checked';
+    } else {
+      checkBox = null;
+    }
+    const todo = createElement('div', 'todo', null, null, `
+    <input type="checkbox" name="completed" id="completed" ${checkBox}>
+    <p class="discription">Get enough money</p>
+    <i class="fas fa-ellipsis-v"></i>
+    `);
+    todo.classList.add('todo');
+    TodoContainer.appendChild(todo);
+  });
+}
 
-export default printElements;
+export default DisplayTodoListOnDOM
