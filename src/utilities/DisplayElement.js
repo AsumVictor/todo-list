@@ -60,6 +60,7 @@ const DisplayTodoListOnDOM = () => {
     if (event.key === 'Enter') {
       event.preventDefault();
       addTodo();
+      DisplayTodoListOnDOM();
     }
   });
 
