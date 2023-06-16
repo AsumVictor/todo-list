@@ -15,7 +15,7 @@ const DisplayTodoListOnDOM = () =>{
     }
     const todo = createElement('div', 'todo', null, null, `
     <input type="checkbox" name="completed" id="completed" ${checkBox}>
-    <p class="discription">Get enough money</p>
+    <p class="discription">${todosItem.description}</p>
     <i class="fas fa-ellipsis-v"></i>
     `);
     todo.classList.add('todo');
