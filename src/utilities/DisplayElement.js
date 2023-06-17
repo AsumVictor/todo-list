@@ -6,13 +6,14 @@ import {
 import {
   addTodo,
   removeTodo,
-  updateCompleteStatus,
   editTodo,
   saveEdit,
 } from './TodosOperations';
 import { elEvent } from './DocumentEvents';
 import { getItemsFromStorage } from './Storage';
 import switchButtons from './switchAddAndSaveBtn';
+import { updateCompleteStatus } from './TodoCompleteOperations';
+
 
 const DisplayTodoListOnDOM = () => {
   let todos;
@@ -54,7 +55,10 @@ const DisplayTodoListOnDOM = () => {
   const checkboxs = SelectMultipleElementsFromDOM('.checkbox');
   const editButtons = SelectMultipleElementsFromDOM('.edit');
   const saveEditBtn = SelectElementFromDOM('.save');
-  elEvent(addTodoBtn, 'click', addTodo);
+  elEvent(addTodoBtn, 'click', ()=>{
+    addTodo()
+    DisplayTodoListOnDOM();
+  });
   elEvent(input, 'keypress', (event) => {
     // if key is equall to enter
     if (event.key === 'Enter') {

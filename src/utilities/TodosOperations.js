@@ -48,16 +48,6 @@ export const editTodo = (index) => {
   state = index;
 };
 
-export const updateCompleteStatus = (index) => {
-  const todos = getItemsFromStorage('todos');
-
-  todos[index] = {
-    ...todos[index],
-    completed: !todos[index].completed,
-  };
-
-  saveItemsToStorage('todos', todos);
-};
 
 export const saveEdit = () => {
   const todos = getItemsFromStorage('todos');
