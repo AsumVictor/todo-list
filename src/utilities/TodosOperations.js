@@ -2,7 +2,7 @@ import { saveItemsToStorage, getItemsFromStorage } from './Storage';
 import { SelectElementFromDOM } from './variables';
 
 // Add new todo list
-const saveTodo = (arrayItem) => {
+export const saveTodo = (arrayItem) => {
   const listTodo = arrayItem.map((todo, index) => ({
     ...todo,
     index: index + 1,
@@ -14,17 +14,17 @@ const saveTodo = (arrayItem) => {
 let state = null;
 
 export const addTodo = () => {
-  const todos = getItemsFromStorage('todos');
+  let todos;
+  if (!getItemsFromStorage('todos')) {
+    todos = [];
+  } else {
+    todos = getItemsFromStorage('todos');
+  }
   const input = SelectElementFromDOM('input');
   const newTodo = {
     description: input.value,
     completed: false,
   };
-
-  if (input.value.trim() === '') {
-    alert('Field cannot be empty');
-    return;
-  }
 
   todos.push(newTodo);
   const orderedTodo = saveTodo(todos);
@@ -46,17 +46,6 @@ export const editTodo = (index) => {
   const input = SelectElementFromDOM('input');
   input.value = todos[index].description;
   state = index;
-};
-
-export const updateCompleteStatus = (index) => {
-  const todos = getItemsFromStorage('todos');
-
-  todos[index] = {
-    ...todos[index],
-    completed: !todos[index].completed,
-  };
-
-  saveItemsToStorage('todos', todos);
 };
 
 export const saveEdit = () => {
