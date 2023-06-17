@@ -10,7 +10,6 @@ const switchButtons = (mode) => {
   }
   if (mode === 'add') {
     save.classList.remove('active');
-    add.classList.add('active');
   }
 };
 

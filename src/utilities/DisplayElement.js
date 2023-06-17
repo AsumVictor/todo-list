@@ -4,16 +4,15 @@ import {
   SelectMultipleElementsFromDOM,
 } from './variables';
 import {
-  addTodo,
-  removeTodo,
-  editTodo,
-  saveEdit,
+  addTodo, removeTodo, editTodo, saveEdit,
 } from './TodosOperations';
 import { elEvent } from './DocumentEvents';
 import { getItemsFromStorage } from './Storage';
 import switchButtons from './switchAddAndSaveBtn';
-import { updateCompleteStatus } from './TodoCompleteOperations';
-
+import {
+  updateCompleteStatus,
+  clearCompeleted,
+} from './TodoCompleteOperations';
 
 const DisplayTodoListOnDOM = () => {
   let todos;
@@ -55,16 +54,38 @@ const DisplayTodoListOnDOM = () => {
   const checkboxs = SelectMultipleElementsFromDOM('.checkbox');
   const editButtons = SelectMultipleElementsFromDOM('.edit');
   const saveEditBtn = SelectElementFromDOM('.save');
-  elEvent(addTodoBtn, 'click', ()=>{
-    addTodo()
-    DisplayTodoListOnDOM();
+  const clearComplteBtn = SelectElementFromDOM('.clear-btn');
+
+  elEvent(addTodoBtn, 'click', () => {
+    if (input.value.trim() !== '') {
+      addTodo();
+      DisplayTodoListOnDOM();
+    }
   });
+
   elEvent(input, 'keypress', (event) => {
     // if key is equall to enter
     if (event.key === 'Enter') {
       event.preventDefault();
       addTodo();
       DisplayTodoListOnDOM();
+    }
+
+    if (input.value.trim() === '') {
+      addTodoBtn.classList.remove('active');
+    } else {
+      addTodoBtn.classList.add('active');
+    }
+  });
+
+  elEvent(input, 'keyup', () => {
+    if (
+      input.value.trim() !== ''
+      && !saveEditBtn.classList.contains('active')
+    ) {
+      addTodoBtn.classList.add('active');
+    } else {
+      addTodoBtn.classList.remove('active');
     }
   });
 
@@ -74,6 +95,7 @@ const DisplayTodoListOnDOM = () => {
       DisplayTodoListOnDOM();
     });
   });
+
   editButtons.forEach((editButton, index) => {
     elEvent(editButton, 'click', () => {
       switchButtons('edit');
@@ -82,15 +104,21 @@ const DisplayTodoListOnDOM = () => {
     });
   });
 
+  elEvent(saveEditBtn, 'click', () => {
+    saveEdit();
+    switchButtons('add');
+    DisplayTodoListOnDOM();
+  });
+
   checkboxs.forEach((checkbox, index) => {
     elEvent(checkbox, 'click', () => {
       updateCompleteStatus(index);
       DisplayTodoListOnDOM();
     });
   });
-  elEvent(saveEditBtn, 'click', () => {
-    saveEdit();
-    switchButtons('add');
+
+  elEvent(clearComplteBtn, 'click', () => {
+    clearCompeleted();
     DisplayTodoListOnDOM();
   });
 };
