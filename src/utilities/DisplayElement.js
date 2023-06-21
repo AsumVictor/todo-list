@@ -65,7 +65,7 @@ const DisplayTodoListOnDOM = () => {
 
   elEvent(input, 'keypress', (event) => {
     // if key is equall to enter
-    if (event.key === 'Enter') {
+    if ((event.key === 'Enter') && input.value.trim() !== '') {
       event.preventDefault();
       addTodo();
       DisplayTodoListOnDOM();
